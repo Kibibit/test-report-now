@@ -2,8 +2,18 @@
   "name": "@kibibit/project-template",
   "version": "1.0.0",
   "description": "all basic node.js project tools installed and ready to go",
-  "main": "index.js",
+  "types": "lib/index.d.ts",
+  "main": "lib/index.js",
+  "files": [
+    "/lib",
+    "/bin"
+  ],
+  "bin": {
+    "kb-reporter": "lib/test-report-cli.js"
+  },
   "scripts": {
+    "start": "node lib/test-report-cli.js",
+    "build": "tsc",
     "generate-barrels": "barrelsby --delete -d ./src -l below -q",
     "coveralls": "cat ./test-results/coverage/lcov.info | coveralls",
     "commit": "npx git-cz",
@@ -29,7 +39,9 @@
     "class-validator": "^0.11.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
-    "moment": "^2.24.0"
+    "manakin": "^0.5.2",
+    "moment": "^2.24.0",
+    "now-client": "^6.0.0"
   },
   "devDependencies": {
     "@commitlint/cli": "^8.2.0",
