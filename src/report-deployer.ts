@@ -15,7 +15,10 @@ export function kbTestReporter() {
     throw new Error('required environment variable NOW_TOKEN is not set');
   }
 
-  exec(`npx now alias --token=${ nowToken } $(now ./test-results --no-clipboard --token=${ nowToken } --public) achievibit-pr-${ travisPullRequest }`,
+  const prSlug = process.env.TRAVIS_PULL_REQUEST_SLUG;
+  const splitted = prSlug.split('\/');
+
+  exec(`npx now alias --token=${ nowToken } $(now ./test-results --no-clipboard --token=${ nowToken } --public) ${ splitted[ 0 ] }-${ splitted[ 1 ] }-pr-${ travisPullRequest }`,
     async (err, stdout, stderr) => {
       if (err) {
         console.error(err);
@@ -27,11 +30,7 @@ export function kbTestReporter() {
       const auth = process.env.GH_TOKEN;
       const octokit = new Octokit({ auth });
 
-      const prSlug = process.env.TRAVIS_PULL_REQUEST_SLUG;
-
-      const splitted = prSlug.split('\/');
-
-      const testReportUrl = `https://achievibit-pr-${ travisPullRequest }.now.sh`;
+      const testReportUrl = `https://${ splitted[ 0 ] }-${ splitted[ 1 ] }-pr-${ travisPullRequest }.now.sh`;
 
       const comment = {
         repo: splitted[ 1 ],
