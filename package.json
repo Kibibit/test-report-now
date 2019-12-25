@@ -1,9 +1,9 @@
 {
-  "name": "@kibibit/project-template",
-  "version": "1.0.0",
-  "description": "all basic node.js project tools installed and ready to go",
-  "types": "lib/index.d.ts",
-  "main": "lib/index.js",
+  "name": "@kibibit/test-report-now",
+  "version": "0.0.0-development",
+  "description": "deploy test results to zeit-now and add a comment on PRs",
+  "types": "lib/report-deployer.d.ts",
+  "main": "lib/report-deployer.js",
   "files": [
     "/lib",
     "/bin"
@@ -22,18 +22,19 @@
     "test:watch": "jest --watch --coverage",
     "test:cov": "jest --coverage",
     "test:debug": "node --inspect-brk -r tsconfig-paths/register -r ts-node/register node_modules/.bin/jest --runInBand",
-    "test:e2e": "jest --config ./test/jest-e2e.json"
+    "test:e2e": "jest --config ./test/jest-e2e.json",
+    "semantic-release": "semantic-release"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/Kibibit/project-template.git"
+    "url": "https://github.com/Kibibit/test-report-now.git"
   },
   "author": "",
   "license": "ISC",
   "bugs": {
-    "url": "https://github.com/Kibibit/project-template/issues"
+    "url": "https://github.com/Kibibit/test-report-now/issues"
   },
-  "homepage": "https://github.com/Kibibit/project-template#readme",
+  "homepage": "https://github.com/Kibibit/test-report-now#readme",
   "dependencies": {
     "class-transformer": "^0.2.3",
     "class-validator": "^0.11.0",
@@ -44,6 +45,14 @@
     "now-client": "^6.0.0"
   },
   "devDependencies": {
+    "@semantic-release/commit-analyzer": "^6.1.0",
+    "@semantic-release/exec": "^3.4.0-beta.2",
+    "@semantic-release/git": "^7.1.0-beta.3",
+    "@semantic-release/github": "^5.2.10",
+    "@semantic-release/npm": "^5.1.4",
+    "@semantic-release/release-notes-generator": "^7.1.4",
+    "semantic-release": "^15.14.0",
+    "semantic-release-cli": "^5.2.3",
     "@commitlint/cli": "^8.2.0",
     "@commitlint/config-conventional": "^8.2.0",
     "@types/fs-extra": "^8.0.1",
@@ -118,5 +127,43 @@
     "commitizen": {
       "path": "./node_modules/cz-conventional-changelog"
     }
+  },
+  "release": {
+    "branches": [
+      "master",
+      {
+        "name": "next",
+        "prerelease": true
+      }
+    ],
+    "npmPublish": true,
+    "analyzeCommits": [
+      "@semantic-release/commit-analyzer"
+    ],
+    "verifyConditions": [
+      "@semantic-release/npm",
+      "@semantic-release/git",
+      "@semantic-release/github"
+    ],
+    "prepare": [
+      "@semantic-release/npm",
+      {
+        "path": "@semantic-release/git",
+        "assets": [
+          "package.json"
+        ],
+        "message": "chore(release): ${nextRelease.version} [skip ci]\n\n${nextRelease.notes}"
+      }
+    ],
+    "publish": [
+      "@semantic-release/npm",
+      "@semantic-release/github"
+    ],
+    "success": [
+      "@semantic-release/github"
+    ],
+    "fail": [
+      "@semantic-release/github"
+    ]
   }
 }
