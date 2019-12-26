@@ -1,6 +1,6 @@
 {
   "name": "@kibibit/test-report-now",
-  "version": "1.0.0-next.1",
+  "version": "1.0.0-next.2",
   "description": "deploy test results to zeit-now and add a comment on PRs",
   "types": "lib/report-deployer.d.ts",
   "main": "lib/report-deployer.js",
