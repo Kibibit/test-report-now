@@ -70,7 +70,7 @@
     "jest": "^24.9.0",
     "jest-github-reporter": "^0.3.4",
     "jest-stare": "^1.25.0",
-    "now": "^16.7.0",
+    "now": "^17.0.3",
     "supertest": "^4.0.2",
     "ts-jest": "^24.1.0",
     "ts-loader": "^6.1.1",
