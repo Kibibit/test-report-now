@@ -39,7 +39,7 @@
   "homepage": "https://github.com/Kibibit/test-report-now#readme",
   "dependencies": {
     "class-transformer": "^0.2.3",
-    "class-validator": "^0.11.0",
+    "class-validator": "^0.14.0",
     "fs-extra": "^8.1.0",
     "lodash": "^4.17.15",
     "manakin": "^0.5.2",
